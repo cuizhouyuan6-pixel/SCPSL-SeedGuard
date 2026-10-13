@@ -57,7 +57,7 @@ $numbers=@($ver | ForEach-Object {if($null -ne $_.Operand){[int]$_.Operand}else{
 Assert (($numbers -join '.') -eq '14.2.7') "游戏版本已变化：$($numbers -join '.')"
 Assert ($exiled[0].Name.Version.ToString() -eq '9.14.2.0') 'EXILED 版本已变化'
 Assert ($labApi.Name.Version.ToString() -eq '1.1.7.0') 'LabAPI 版本已变化'
-Assert ($plugin.Name.Version.ToString() -eq '1.0.0.0') '插件版本号'
+Assert ($plugin.Name.Version.ToString() -eq '1.0.1.0') '插件版本号'
 Assert (@($plugin.MainModule.AssemblyReferences | Where-Object Name -like '*Harmony*').Count -eq 0) '插件不应依赖 Harmony'
 
 # 2. Runtime evidence of public accessibility: LabApi.dll is compiled against the real game assembly.

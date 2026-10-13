@@ -18,7 +18,7 @@ namespace SeedGuard
         public override string Name => "SeedGuard";
         public override string Prefix => "seed_guard";
         public override string Author => "HHS";
-        public override Version Version => new Version(1, 0, 0);
+        public override Version Version => new Version(1, 0, 1);
         public override Version RequiredExiledVersion => new Version(9, 14, 2);
 
         public override void OnEnabled()
@@ -40,7 +40,7 @@ namespace SeedGuard
                 ticker = host;
                 Instance = this;
                 base.OnEnabled();
-                Log.Info($"[SeedGuard] v1.0.0 已启用：玩家加载完地图后，客户端 seed 指令将显示 {Config.DisplayedSeed}。目标 SCP:SL 14.2.7 / EXILED 9.14.2。");
+                Log.Info($"[SeedGuard] v1.0.1 已启用：玩家加载完地图后，客户端 seed 指令将显示 {Config.DisplayedSeed}。目标 SCP:SL 14.2.7 / EXILED 9.14.2。");
             }
             catch (Exception ex)
             {

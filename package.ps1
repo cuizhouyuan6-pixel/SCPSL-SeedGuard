@@ -1,6 +1,6 @@
 ﻿$ErrorActionPreference='Stop'
 $project=$PSScriptRoot
-$version='1.0.0'
+$version='1.0.1'
 $delivery=Join-Path $project '交付'
 $package=Join-Path $delivery "SeedGuard_v$version"
 if(Test-Path -LiteralPath $package){throw '交付目录已存在；请审核后使用新的版本目录。'}

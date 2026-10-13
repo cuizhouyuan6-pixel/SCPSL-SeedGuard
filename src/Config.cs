@@ -8,8 +8,8 @@ namespace SeedGuard
     {
         public bool IsEnabled { get; set; } = true;
         public bool Debug { get; set; }
-        [Description("玩家在控制台输入 seed 时显示的数字。客户端只能显示数字，无法显示文字；真实种子不可能是 0。")]
-        public int DisplayedSeed { get; set; }
+        [Description("玩家在控制台输入 seed 时显示的数字。客户端只能显示数字，无法显示文字；设为 0 可明确表示已隐藏（真实种子不可能是 0）。")]
+        public int DisplayedSeed { get; set; } = 114514;
         [Description("隐藏种子后推送到玩家控制台的提示，玩家输入 .seed 时也回复这句话；留空则不推送。")]
         public string Notice { get; set; } = "服务器禁止使用Seed指令";
         [Description("控制台提示颜色，例如 red、yellow、green、cyan、magenta、white。")]

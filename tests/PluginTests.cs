@@ -86,7 +86,7 @@ namespace SeedGuard.Tests
             H.Equal(1, ExiledServer.RestartingRound.Count, "订阅 RestartingRound");
             H.Equal(1, created, "创建一个 Unity 宿主");
             H.Equal(1, plugin.BaseEnabled, "调用 EXILED 基类启用");
-            H.Equal(1, Log.Lines.FindAll(l => l.StartsWith("INFO") && l.Contains("v1.0.0 已启用")).Count, "启用日志");
+            H.Equal(1, Log.Lines.FindAll(l => l.StartsWith("INFO") && l.Contains("v1.0.1 已启用") && l.Contains("将显示 114514")).Count, "启用日志");
             plugin.OnEnabled();
             H.Equal(before + 1, Subscribers, "重复启用不重复订阅");
             H.Equal(1, ExiledServer.RestartingRound.Count, "重复启用不重复订阅 EXILED 事件");
@@ -142,7 +142,9 @@ namespace SeedGuard.Tests
             H.Equal(0, ExiledServer.RestartingRound.Count, "拒绝启用后没有 EXILED 订阅");
             var defaults = new Config();
             GuardSettings settings = defaults.ToSettings();
-            H.Check(defaults.IsEnabled && !defaults.Debug && defaults.DisplayedSeed == 0 && !defaults.LogEachPlayer, "默认开关");
+            H.Check(defaults.IsEnabled && !defaults.Debug && !defaults.LogEachPlayer, "默认开关");
+            H.Equal(114514, defaults.DisplayedSeed, "默认显示值");
+            H.Equal(114514, settings.DisplayedSeed, "默认显示值传入运行设置");
             H.Equal("服务器禁止使用Seed指令", settings.Notice, "默认提示");
             H.Equal(3000L, settings.NoticeDelayMs, "默认提示延迟");
             H.Equal(250L, settings.CheckIntervalMs, "默认检查间隔");
@@ -161,7 +163,13 @@ namespace SeedGuard.Tests
             Game.AddHub(2, "玩家甲", ClientInstanceMode.ReadyClient, client, spawned: true);
             plugin.Service.Tick();
             H.Equal(1, client.Sent.Count, "生产链路发送伪种子");
-            H.Equal(0, client.SeedValue(0), "发送配置值 0");
+            H.Equal(114514, client.SeedValue(0), "按默认配置发送 114514");
+            // Replay the captured packet into the vanilla client handler and console command.
+            Game.ServerActive = false;
+            Game.SetSingleton(alive: true);
+            H.Call(Game.Sync, "ClientReceiveSeed", null, Game.Decode(client.Sent[0].Data, out _));
+            H.Equal("Map seed is: 114514", Game.SeedCommandOutput(), "玩家输入 seed 看到 114514");
+            Game.ServerActive = true;
             ExiledServer.RestartingRound.Raise();
             H.Check(!plugin.Service.Core.Active, "EXILED 回合重启事件暂停发送");
             RecordingConnection late = RecordingConnection.Create(71);
