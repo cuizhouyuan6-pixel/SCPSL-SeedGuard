@@ -1,0 +1,20 @@
+seed_guard:
+  is_enabled: true
+  debug: false
+  # 玩家在控制台输入 seed 时显示的数字。客户端只能显示数字，无法显示文字；真实种子不可能是 0。
+  displayed_seed: 0
+  # 隐藏种子后推送到玩家控制台的提示，玩家输入 .seed 时也回复这句话；留空则不推送。
+  notice: 服务器禁止使用Seed指令
+  # 控制台提示颜色，例如 red、yellow、green、cyan、magenta、white。
+  notice_color: red
+  # 隐藏种子后延迟多少秒推送控制台提示（0–60）。
+  notice_delay: 3
+  # 检查新玩家的间隔秒数（0.05–5）。
+  check_interval: 0.25
+  # 是否为每名玩家记录一条“已隐藏种子”日志。
+  log_each_player: false
+
+# EXILED 权限示例（config/permissions.yml）：
+# owner:
+#   permissions:
+#   - seedguard.status

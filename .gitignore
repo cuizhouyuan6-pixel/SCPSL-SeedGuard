@@ -1,0 +1,12 @@
+bin/
+obj/
+build/
+.vs/
+*.user
+*.dll
+*.exe
+*.pdb
+*.zip
+*.log
+refs/
+交付/
